@@ -1,0 +1,9 @@
+.jumbotron {
+    color: #fff;
+    text-align: left;
+    background: url(https://s3-us-west-2.amazonaws.com/benji.to/img-bg-train-line.png);
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
