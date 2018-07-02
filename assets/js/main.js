@@ -65,39 +65,25 @@
       var now = moment().unix();
       var date = moment().format("MM/DD/YYYY " + displayFirstTrain);
       var ts = moment(date).unix();
-      var hhmm = "";
-
-      console.log("now", now);
-      console.log("date", date);
-      console.log("unix", ts);
-
-      //===================================================
+      
       // Calculate nextArrival
       //bww placeholder of nextArrival
-      var nextArrival = "";
-      
+      console.log("first train in seconds", ts);
+
+      var fequencySec = displayFequency * 60;
+      console.log("feq in sec", fequencySec);
+
+      while (ts < now) {
+          var nextArrivalSec = ts += fequencySec;
+      }
+    //   var nextArrivalSec = nextArrivalSec - now;
+      var nextArrival =  moment(nextArrivalSec).format("HH:mm");
+
+    //   console.log("First train in HH:mm", date);
+    //   console.log("Next arrival in HH:mm", nextArrival);
+          
       //===================================================
-      // Calculate minAway
-      var timeDiff = ts - now;
-      console.log("Time differential", timeDiff);
 
-      if (ts > now) {
-        var minAway = calcMinAway(timeDiff);
-          function calcMinAway(sec) {
-              var hours = Math.floor(sec / (60 * 60));
-
-              var divisor_for_minutes = sec % (60 * 60);
-              var minutes = Math.floor(divisor_for_minutes / 60);
-
-              var hhmm = 
-                  hours + ":" + minutes;
-              return hhmm;
-            }
-            console.log(calcMinAway(timeDiff));
-     //bww not working
-      } else {
-          console.log("wtf");
-      }    
-      $("#train-schedule").append("<tr><td>" + displayName + "</td><td>" + displayDestination + "</td><td>" + displayFequency + "</td><td>" + nextArrival + "</td><td>" + minAway + "</td>");
+      $("#train-schedule").append("<tr><td>" + displayName + "</td><td>" + displayDestination + "</td><td>" + displayFequency + "</td><td>" + nextArrival + "</td>"); //<td>" + minAway + "</td>");
 
   });
