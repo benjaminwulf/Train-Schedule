@@ -49,7 +49,6 @@ function saveForm(name, destination, firstTrain, frequency) {
         destination: destination,
         firstTrain: firstTrain,
         frequency: frequency,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 }
 
@@ -61,6 +60,13 @@ rootRef.on("child_added", snap => {
     var displayDestination = snap.child("destination").val();
     var displayFirstTrain = snap.child("firstTrain").val();
     var displayFequency = snap.child("frequency").val();
+  
+    // Use Durations to compare
+    var date = moment().format("MM/DD/YYYY " + displayFirstTrain);
+    var ts = moment(date).unix();
+    console.log("date", date);
+    console.log("unix", ts);
 
-    $("#train-schedule").append("<tr><td>" + displayName + "</td><td>" + displayDestination + "</td><td>" + displayFirstTrain + "</td><td>" + displayFequency + "</td>")
+    $("#train-schedule").append("<tr><td>" + displayName + "</td><td>" + displayDestination + "</td><td>" + displayFequency + "</td>")
+
 });
