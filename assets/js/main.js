@@ -60,30 +60,27 @@
       var displayDestination = snap.child("destination").val();
       var displayFirstTrain = snap.child("firstTrain").val();
       var displayFequency = snap.child("frequency").val();
-
-      // Use Durations to compare
-      var now = moment().unix();
-      var date = moment().format("MM/DD/YYYY " + displayFirstTrain);
-      var ts = moment(date).unix();
       
-      // Calculate nextArrival
-      //bww placeholder of nextArrival
-      console.log("first train in seconds", ts);
+      // Use Durations to compare
+      var dateMinusOneYear = moment(displayFirstTrain, "hh:mm").subtract(1, "years");
+      
+      // Differece between times
+      var diffTime = moment().diff(moment(dateMinusOneYear),"minutes");
+     
+      // Time btw trains (remainder)
+      var timeRemainder = diffTime % displayFequency;
+      
+      // Minutes until train
+      minutesAway = displayFequency - timeRemainder;
+    //   console.log("minutes away", minutesAway);
 
-      var fequencySec = displayFequency * 60;
-      console.log("feq in sec", fequencySec);
+      // Next Train
+      var nextTrainInMin = moment().add(minutesAway, "minutes");
+      var nextArrival = moment(nextTrainInMin).format("hh:mm");
+    //   console.log("next train arrival is", nextArrival);
 
-      while (ts < now) {
-          var nextArrivalSec = ts += fequencySec;
-      }
-    //   var nextArrivalSec = nextArrivalSec - now;
-      var nextArrival =  moment(nextArrivalSec).format("HH:mm");
+      // Display it all the train-schedule id
 
-    //   console.log("First train in HH:mm", date);
-    //   console.log("Next arrival in HH:mm", nextArrival);
-          
-      //===================================================
-
-      $("#train-schedule").append("<tr><td>" + displayName + "</td><td>" + displayDestination + "</td><td>" + displayFequency + "</td><td>" + nextArrival + "</td>"); //<td>" + minAway + "</td>");
+      $("#train-schedule").append("<tr><td>" + displayName + "</td><td>" + displayDestination + "</td><td>" + displayFequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td>");
 
   });
